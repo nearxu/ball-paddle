@@ -147,8 +147,34 @@ class Block {
     this.w = 50;
     this.h = 20;
     this.life = life;
+    this.alive = true;
     this.image =
       life == 1 ? imageFromPath(allImg.block1) : imageFromPath(allImg.block2);
+  }
+  kill() {
+    this.life--;
+    if (this.life == 0) {
+      this.alive = false;
+    } else if (this.life == 1) {
+      this.image = imageFromPath(allImg.block1);
+    }
+  }
+  crash(ball) {
+    let b = ball;
+    if (
+      Math.abs(b.x + b.w / 2 - (this.x + this.w / 2)) < (b.w + this.w) / 2 &&
+      Math.abs(b.y + b.h / 2 - (this.y + this.h / 2)) < (b.h + this.h) / 2
+    ) {
+      this.kill();
+      return true;
+    } else {
+      return false;
+    }
+  }
+  collBlock(ball) {
+    let b = ball;
+    let rangeX = 0;
+    let rangeY = 0;
   }
 }
 
@@ -168,16 +194,15 @@ class Paddle {
     this.x += this.speed;
   }
   crash(ball) {
+    let b = ball;
+    let p = this;
     if (
-      Math.abs(
-        ball.x + ball.w / 2 - (this.x + this.w / 2) < (ball.w + this.w) / 2
-      ) &&
-      Math.abs(ball.y + ball.h / 2 - this.y < (ball.h + this.h) / 2)
+      Math.abs(b.x + b.w / 2 - (p.x + p.w / 2)) < (b.w + p.w) / 2 &&
+      Math.abs(b.y + b.h / 2 - (p.y + p.h / 2)) < (b.h + p.h) / 2
     ) {
       return true;
-    } else {
-      return false;
     }
+    return false;
   }
 }
 
@@ -203,5 +228,25 @@ class Ball {
       this.x -= this.speedX;
       this.y -= this.speedY;
     }
+  }
+}
+
+class Score {
+  constructor(main) {
+    this.x = main.score_x;
+    this.y = main.score_y;
+    this.text = "分数";
+    this.textLv = "官咖:";
+    this.score = 200;
+    this.allScore = 0;
+    this.blockList = main.blockList;
+    this.blockListLen = main.blockList.length;
+    this.lv = main.LV;
+  }
+  computeScore() {
+    let num = 0;
+    let allNum = this.blockListLen;
+    num = this.blockListLen - this.blockList.length;
+    this.allScore = this.score * num;
   }
 }
