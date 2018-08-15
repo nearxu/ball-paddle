@@ -1,4 +1,6 @@
-class Game {
+import { imageFromPath, allImg } from "./common";
+
+export class Game {
   constructor(main) {
     this.main = main;
     this.canvas = document.getElementById("canvas");
@@ -167,5 +169,3 @@ class Game {
     ball.move();
   }
 }
-
-export { Game };

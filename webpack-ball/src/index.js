@@ -1,5 +1,7 @@
+import { Scene, Paddle, Ball, Score } from "./scene";
 import { Game } from "./game";
-import { Scene, Block, Paddle, Ball, Score } from "./scene";
+import "./css/common.css";
+import "./css/style.css";
 
 class Main {
   constructor() {
@@ -15,6 +17,7 @@ class Main {
     this.score_x = 10;
     this.score_y = 30;
     this.score = null;
+    this.MAXLV = 2;
   }
   start() {
     this.scene = new Scene(this.LV);

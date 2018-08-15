@@ -1,5 +1,4 @@
 import { imageFromPath, allImg } from "./common";
-
 class Scene {
   constructor(lv) {
     let s = {
@@ -253,4 +252,4 @@ class Score {
   }
 }
 
-export { Scene, Block, Paddle, Ball, Score };
+export { Scene, Paddle, Ball, Score, Block };
